@@ -1,27 +1,37 @@
 import streamlit as st
 from PIL import Image
+from streamlit import session_state as ss
 
-prozis_icon = Image.open("./images/p_logo.ico")
+if 'user_id' not in ss:
+    ss.user_id = None
 
 pages = {
-    "Gestor de Stock": [
-        st.Page("page_1.py", title="Pagina 1", icon="🌐"),
-        st.Page("page_2.py", title="Pagina 2", icon="⚙️"),
-        st.Page("page_3.py", title="Pagina 3", icon="❔"),
+    "Gestão de Componentes": [
+        st.Page("page_1.py", title="Pesquisar", icon="🌐"),
+        st.Page("page_2.py", title="Adicionar", icon="⚙️"),
+    ],
+    "Gestão de Cotações": [
+        st.Page("page_3.py", title="Pesquisar", icon="🌐"),
+        st.Page("page_4.py", title="Adicionar", icon="⚙️"),
     ],
 }
 
-st.set_page_config(page_icon=prozis_icon,layout="wide")
+st.set_page_config(page_icon=Image.open("./images/p_logo.ico"),layout="wide")
 
-if True:
+if ss.user_id is None:
     col1,col2,col3 = st.columns(3)
     with col2:
-        st.subheader("Página de Login")
+        st.subheader("Página de login")
         st.divider()
-        user = st.text_input("Username")
-        password = st.text_input("Password", type="password")
+        user_input = st.text_input("Username")
+        password_input = st.text_input("Password", type="password")
         st.divider()
-        st.button("LOGIN", use_container_width=True, type="primary")
+        if st.button("LOGIN", use_container_width=True, type="primary", key = "botao_login"):
+            # Vai ler da BD a tabela do login e vai comparar se existe na tabela. Se sim, muda uma flag para nao fazer login de novo.
+            if ss.botao_login:
+                ss.user_id = user_input
+            st.rerun()
+
 else:
     pg = st.navigation(pages)
     pg.run()
