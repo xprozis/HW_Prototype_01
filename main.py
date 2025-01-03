@@ -6,11 +6,11 @@ if 'user_id' not in ss:
     ss.user_id = None
 
 pages = {
-    "Gestão de Componentes": [
+    "GESTÃO DE COMPONENTES": [
         st.Page("page_1.py", title="Pesquisar", icon="🔎"),
         st.Page("page_2.py", title="Adicionar", icon="➕"),
     ],
-    "Gestão de Cotações": [
+    "GESTÂO DE COTAÇÕES": [
         st.Page("page_3.py", title="Pesquisar", icon="🔎"),
         st.Page("page_4.py", title="Adicionar", icon="➕"),
     ],
@@ -30,7 +30,6 @@ if ss.user_id is None:
             if ss.botao_login:
                 ss.user_id = user_input
             st.rerun()
-
 else:
     pg = st.navigation(pages)
     pg.run()

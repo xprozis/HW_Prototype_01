@@ -1,10 +1,9 @@
 import streamlit as st
 import pandas as pd
-from controller.page_1_c import *
 
 df = pd.DataFrame(["No data"])
 
-st.header("Pagina 1")
+st.header("Pesquisar componente")
 st.divider()
 
 query_exemplo = """SELECT * FROM assembly.program
